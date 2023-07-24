@@ -1,8 +1,9 @@
 const express = require('express')
-
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium-min");
 
 const app = express()
-const puppeteer = require("puppeteer");
+const PORT = process.env.PORT || 3000
 
 const instanciaBrowser = async ()=>{
 	const browser =  await puppeteer.launch({
@@ -20,8 +21,6 @@ const instanciaBrowser = async ()=>{
 	
 }
 
-
-const PORT = process.env.PORT || 3000
 
 app.get('/',(request, response)=>{
 	response.send("Server On")
