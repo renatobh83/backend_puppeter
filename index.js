@@ -76,7 +76,7 @@ app.get('/news', async (request, response)=>{
 		 	const noticiaJornal = await page.evaluate((classe, jornal, nNoticias)=>{
         	const nodeList = document.getElementsByClassName(classe)
         	const valorNews = [...nodeList].slice(0,nNoticias)
-        	const list =  valorNews.map(({innerText}) => ({jornal, noticia: innerText}))
+        	const list =  valorNews.map(({textContent}) => ({jornal, noticia: textContent}))
       return list
     },classe, jornal, nNoticias)
 		 await browser.close()
