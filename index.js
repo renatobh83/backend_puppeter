@@ -1,11 +1,22 @@
 const express = require('express')
-const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium-min");
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-const instanciaBrowser = async ()=>{
+const isDev = !process.env.NODE_ENV  
+
+
+const instanciaBrowser = isDev ? async ()=>{
+	const puppeteerLocal = require('puppeteer')
+	const browser =  await puppeteerLocal.launch({headless: 'new'});
+	return browser
+	
+} :
+async ()=>{
+
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium-min");
+
 	const browser =  await puppeteer.launch({
        args:[ "--disable-setuid-sandbox",
       "--no-sandbox",
@@ -38,14 +49,13 @@ app.get('/screen',async (request, response)=>{
 		
 		const page = await browser.newPage();	
 		await page.goto(url)
-		const screenshot = await page.screenshot();
+		const screenshot = await page.screenshot({fullPage :true});
+		 await browser.close();
 		response.set('Content-Type', 'image/png')		
 		response.send(screenshot)
 	} catch(e) {
  		response.send(`Something went wrong while running Puppeteer: ${e}`);
-	} finally {
-    await browser.close();
-  }
+	}
 })
 
 app.get('/news', async (request, response)=>{
