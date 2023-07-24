@@ -1,10 +1,12 @@
 const express = require('express')
 const puppeteer = require("puppeteer-core");
 const chromium = require("@sparticuz/chromium-min");
-
+const cors = require('cors');
 const app = express()
 const PORT = process.env.PORT || 3000
-
+app.use(cors({
+    origin: '*'
+}));
 const isDev = !process.env.NODE_ENV  
 
 
