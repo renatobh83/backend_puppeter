@@ -1,4 +1,6 @@
 const express = require('express')
+const puppeteer = require("puppeteer-core");
+const chromium = require("@sparticuz/chromium-min");
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -6,17 +8,7 @@ const PORT = process.env.PORT || 3000
 const isDev = !process.env.NODE_ENV  
 
 
-const instanciaBrowser = isDev ? async ()=>{
-	const puppeteerLocal = require('puppeteer')
-	const browser =  await puppeteerLocal.launch({headless: 'new'});
-	return browser
-	
-} :
-async ()=>{
-
-const puppeteer = require("puppeteer-core");
-const chromium = require("@sparticuz/chromium-min");
-
+const instanciaBrowser = async ()=>{
 	const browser =  await puppeteer.launch({
        args:[ "--disable-setuid-sandbox",
       "--no-sandbox",
