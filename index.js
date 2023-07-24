@@ -56,7 +56,7 @@ app.get('/news', async (request, response)=>{
 	const url = request.query.url
 	const classe = request.query.classe
 	const jornal = request.query.jornal
-	const nNoticias = request.query.n || 8
+	const nNoticias = request.query.n || 4
 	if(!url || !classe || !jornal) {
 		response.send('Parametro invalido para url')
 		return 
