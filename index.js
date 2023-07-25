@@ -68,7 +68,7 @@ app.get('/news', async (request, response)=>{
 		await page.setJavaScriptEnabled(false)
 		await page.goto(url,{ waitUntil: 'domcontentloaded' })
 		 	const noticiaJornal = await page.evaluate((classe, jornal, nNoticias)=>{
-        	const nodeList = document.getElementsByClassName(classe) || document.querySelectorAll(classe)
+        	const nodeList = document.getElementsByClassName(classe)
         	const valorNews = [...nodeList].slice(0,nNoticias)
         	const list =  valorNews.map(({textContent}) => ({jornal, noticia: textContent}))
       return list
